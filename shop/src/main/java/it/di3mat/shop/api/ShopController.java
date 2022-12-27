@@ -20,10 +20,13 @@ public class ShopController {
   @Autowired
   ShopOrderRepository shopOrderRepository;
 
+  final String LOG_TAG = this.getClass().getSimpleName();
+
   @PostMapping("/new")
   public Mono<ShopOrder> newOrder() {
     return shopOrderRepository.save(
-        ShopOrder.builder().amount(BigDecimal.valueOf(Math.random())).build());
+            ShopOrder.builder().amount(BigDecimal.valueOf(Math.random())).build())
+        .doOnSuccess(shopOrder -> log.info("[{}] Created new order {}", LOG_TAG, shopOrder.getId()));
   }
 
   @GetMapping ("/all")
