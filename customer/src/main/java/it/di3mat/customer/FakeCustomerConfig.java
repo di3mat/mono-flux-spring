@@ -1,4 +1,4 @@
-package it.di3mat.customer.domain;
+package it.di3mat.customer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 public class FakeCustomerConfig {
 
   @Bean
-  public FakeCustomer fakeCustomer(){
-    return new FakeCustomer("http://localhost:8081");
+  public FakeCustomerService fakeCustomer(){
+    return new FakeCustomerService("http://localhost:8081");
   }
 
 }

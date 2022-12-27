@@ -1,4 +1,4 @@
-package it.di3mat.shop.domain;
+package it.di3mat.response;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class OrderResponse {
 
   UUID id;
   BigDecimal amount;

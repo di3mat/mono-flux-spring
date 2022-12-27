@@ -1,16 +1,17 @@
-package it.di3mat.customer.domain;
+package it.di3mat.customer;
 
+import it.di3mat.response.OrderResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j
-public class FakeCustomer {
+public class FakeCustomerService {
 
   private final String LOG_TAG = this.getClass().getSimpleName();
   WebClient webClient;
 
-  public FakeCustomer(String baseUrl) {
+  public FakeCustomerService(String baseUrl) {
     this.webClient = WebClient.builder().baseUrl(baseUrl).build();
   }
 
@@ -19,9 +20,9 @@ public class FakeCustomer {
     this.webClient.post()
         .uri(uriBuilder -> uriBuilder.path("/order/new").build())
         .retrieve()
-        .bodyToMono(Invoice.class)
-        .doOnError(error -> log.error("[{}] Invoice not received: {}", LOG_TAG, error.getMessage()))
-        .subscribe(invoice -> log.info("[{}] Invoice received: order {} with amount {}",
+        .bodyToMono(OrderResponse.class)
+        .doOnError(error -> log.error("[{}] Order not received: {}", LOG_TAG, error.getMessage()))
+        .subscribe(invoice -> log.info("[{}] Order received: id {} with amount {}",
             LOG_TAG,
             invoice.getId(),
             invoice.getAmount()));
