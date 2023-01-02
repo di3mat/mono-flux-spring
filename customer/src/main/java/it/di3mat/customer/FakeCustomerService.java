@@ -1,5 +1,7 @@
 package it.di3mat.customer;
 
+import static it.di3mat.customer.FakeCustomerConfig.errorHandler;
+
 import it.di3mat.response.OrderResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,7 +14,9 @@ public class FakeCustomerService {
   WebClient webClient;
 
   public FakeCustomerService(String baseUrl) {
-    this.webClient = WebClient.builder().baseUrl(baseUrl).build();
+    this.webClient = WebClient.builder().baseUrl(baseUrl)
+        .defaultHeaders(httpHeaders -> httpHeaders.setBasicAuth("user", "user"))
+        .filter(errorHandler()).build();
   }
 
   @Scheduled(fixedRate = 5000L)
