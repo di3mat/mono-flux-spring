@@ -18,4 +18,6 @@ public class ShopOrder {
   UUID id;
   BigDecimal amount;
 
+  String customer;
+
 }
